@@ -9,7 +9,8 @@ There will also be options to clear the canvas.
 
 If I have extra time, I want to see if I can erase only parts of what has been drawn so far (like an eraser tool), instead of only being 
 able to clear the image entirely. Also, instead of having the user manually type in the language they want to translate the number into, 
-I want to see if there is an openFrameworks feature that allows a dropdown menu (or ability to select an option). 
+I want to see if there is an openFrameworks feature that allows a dropdown menu (or ability to select an option). Also, I would like to
+have the program be able to recognize 2 digit numbers (e.g. 10)
 
 Some of the libraries I plan to use are ofSoundPlayer (to load and play the audio clips and background music), ofImage (for loading and 
 processing the image), ofGraphics, ofxGUI, ofTrueTypeFontSettings (for displaying text in certain fonts). Some of the websites I plan
