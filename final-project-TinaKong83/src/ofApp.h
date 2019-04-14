@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+//#define MAX_PTS = 3000
 
 class ofApp : public ofBaseApp{
 
@@ -26,5 +27,8 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+
+	ofPoint pts[3000];
+	int num_pts;
 		
 };
