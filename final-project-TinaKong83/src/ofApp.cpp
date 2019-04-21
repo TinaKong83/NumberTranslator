@@ -48,7 +48,7 @@ void ofApp::draw(){
 	ofDrawRectangle(100, 100, 500, 500);
 
 	ofSetColor(0, 0, 0);
-	ofSetLineWidth(50);
+	ofSetLineWidth(100000);
 	ofFill();
 	if (num_pts > 1) {
 		for (int i = 0; i < num_pts - 1; i++) {
@@ -113,7 +113,8 @@ vector<vector<char>> ofApp::processImage(ofPixels& image_pixels) {
 		// Loop through every pixel row
 		for (int y = 0; y < 28; y++) {
 			// Use the formula to find the 1D location
-			int loc = x + y * 28;
+			//int loc = x + y * 28;
+			int loc = y + x * 28;
 			if (image_pixels[loc] >= 0 && image_pixels[loc] <= 10) {
 				converted_image.at(x).at(y) = '#';
 			}
