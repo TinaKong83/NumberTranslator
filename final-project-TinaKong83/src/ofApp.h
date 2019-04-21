@@ -24,6 +24,8 @@ public:
 
 	void keyPressed(int key);
 	void keyReleased(int key);
+	vector<vector<char>> processImage(ofPixels& image_pixels);
+	void printCompositeImage(vector<vector<char>>& converted_image);
 	void mouseMoved(int x, int y);
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
@@ -37,7 +39,7 @@ public:
 	ofPoint pts[3000];
 	int num_pts;
 
-	void translatePressed();
+	//void translatePressed();
 	ofxButton translate_button;
 
 	ofImage user_drawing;
@@ -52,4 +54,6 @@ public:
 	ofColor clicked_button_color = ofColor(230, 230, 100);
 
 	bool language_button_clicked;
+
+	bool user_image_entered = false;
 };
