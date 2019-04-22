@@ -95,22 +95,31 @@ void ofApp::keyPressed(int key){
 		vector<vector<char>> converted_image = processImage(image_pixels);
 		printCompositeImage(converted_image);
 
-		//vector<vector<int>> image_in_binary = ConvertImagetoBinary(converted_image);
+		vector<vector<int>> image_in_binary = ConvertImagetoBinary(converted_image);
 
 		string training_images = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
 		string training_labels = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
 
+		cout << "creating vector of images" << endl;
 		vector<vector<vector<int>>> vector_training_images = CreateVectorOfImages(training_images);
+		cout << "creating vector of labels" << endl;
+
 		vector<int> vector_training_labels = CreateVectorOfLabels(training_labels);
+
+		cout << "creating feature probabilities" << endl;
 
 		vector<vector<vector<double>>> vector_class_feature_probability =
 			VectorClassFeatureProbability(vector_training_images, vector_training_labels);
+
+		cout << "creating label priors" << endl;
 		vector<double> vector_label_priors = VectorLabelPriors(vector_training_labels);
 
-		/*vector<double> vector_posterior_probabilities = VectorPosteriorProbabilities(vector_label_priors, 
-			vector_class_feature_probability, );*/
+		vector<double> vector_posterior_probabilities = VectorPosteriorProbabilities(vector_label_priors, 
+			vector_class_feature_probability, image_in_binary);
 
-
+		int estimated_class = EstimateImageClass(vector_posterior_probabilities);
+		cout << "hello" << endl;
+		cout << estimated_class;
 	}
 }
 

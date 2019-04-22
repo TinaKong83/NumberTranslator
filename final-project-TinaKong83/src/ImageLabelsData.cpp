@@ -73,6 +73,7 @@ vector<vector<int>> ConvertImagetoBinary(vector<vector<char>> current_image) {
 			}
 		}
 	}
+	return image_in_binary;
 }
 
 

@@ -1,5 +1,5 @@
 #include <iostream>
-#include
+#include "TrainingData.h";
 
 //Calculates the prior probability of a label
 double CalculateLabelPriorProbability(int label, vector<int>& training_labels) {
@@ -46,18 +46,9 @@ double FindFeatureProbabilityFromClass(int row, int col, int label,
 
 //Generates a list of 2D vectors (of size 10). Each 2D vector in the list is populated with feature probabilities (for that class). 
 //Writes feature probabilities into white and black pixel files 
-vector<vector<vector<double>>> VectorClassFeatureProbability(vector<vector<vector<int>>>& vector_of_images,
-	vector<int>& vector_of_labels, string file_name, string second_file_name) {
+vector<vector<vector<double>>> VectorClassFeatureProbability(vector<vector<vector<int>>>& vector_of_images, 
+	vector<int>& vector_of_labels) {
 
-	std::ofstream white_feature_file;
-	white_feature_file.open(file_name);
-
-	std::ofstream black_feature_file;
-	black_feature_file.open(second_file_name);
-
-	if (white_feature_file.fail() || black_feature_file.fail()) {
-		std::cout << "File is invalid." << std::endl;
-	}
 	vector<vector<vector<double>>> vector_class_feature_probabilities;
 
 	for (int class_value = 0; class_value < 10; class_value++) {
@@ -65,28 +56,10 @@ vector<vector<vector<double>>> VectorClassFeatureProbability(vector<vector<vecto
 		for (int i = 0; i < 28; i++) {
 			for (int j = 0; j < 28; j++) {
 				vector_of_probabilities[i][j] = FindFeatureProbabilityFromClass(i, j, class_value, vector_of_images, vector_of_labels);
-				white_feature_file << vector_of_probabilities[i][j] << " ";
-				black_feature_file << 1.0 - vector_of_probabilities[i][j] << " ";
 			}
 			std::cout << std::endl;
 		}
 		vector_class_feature_probabilities.push_back(vector_of_probabilities);
 	}
 	return vector_class_feature_probabilities;
-}
-
-//Writes each label's independent prior probability to a file
-double WriteLabelPriorProbabilitiesToFile(vector<double>& vector_label_priors, string file_name) {
-	std::ofstream output_file;
-	output_file.open(file_name);
-
-	if (output_file.fail()) {
-		std::cout << "File is invalid." << std::endl;
-	}
-	else {
-		for (int i = 0; i < vector_label_priors.size(); i++) {
-			output_file << i << " " << vector_label_priors.at(i) << std::endl;
-		}
-	}
-	return 0.0;
 }

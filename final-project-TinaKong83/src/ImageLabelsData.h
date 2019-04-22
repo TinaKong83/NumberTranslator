@@ -11,7 +11,7 @@ using std::vector;
 
 vector<int> CreateVectorOfLabels(string file_name);
 vector<vector<vector<int>>> CreateVectorOfImages(string file_name);
-//int TakeCommandArgument(int argc, char *argv[]);
+vector<vector<int>> ConvertImagetoBinary(vector<vector<char>> current_image);
 
 const int kImageSize = 28;
 

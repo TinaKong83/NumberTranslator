@@ -26,6 +26,7 @@ vector<double> VectorPosteriorProbabilities(vector<double>& vector_label_priors,
 			+ CalculatePosteriorProbability(set_vector_feature_probabilities);
 		vector_test_probabilities.push_back(posterior_probability);
 	}
+	return vector_test_probabilities;
 }
 
 /*Since the feature probabilities are calculated for white pixels by default, this method allows the probability of black
