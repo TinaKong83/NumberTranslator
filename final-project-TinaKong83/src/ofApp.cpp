@@ -95,6 +95,22 @@ void ofApp::keyPressed(int key){
 		vector<vector<char>> converted_image = processImage(image_pixels);
 		printCompositeImage(converted_image);
 
+		//vector<vector<int>> image_in_binary = ConvertImagetoBinary(converted_image);
+
+		string training_images = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
+		string training_labels = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
+
+		vector<vector<vector<int>>> vector_training_images = CreateVectorOfImages(training_images);
+		vector<int> vector_training_labels = CreateVectorOfLabels(training_labels);
+
+		vector<vector<vector<double>>> vector_class_feature_probability =
+			VectorClassFeatureProbability(vector_training_images, vector_training_labels);
+		vector<double> vector_label_priors = VectorLabelPriors(vector_training_labels);
+
+		/*vector<double> vector_posterior_probabilities = VectorPosteriorProbabilities(vector_label_priors, 
+			vector_class_feature_probability, );*/
+
+
 	}
 }
 

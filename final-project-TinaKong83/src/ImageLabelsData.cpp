@@ -1,7 +1,6 @@
 // ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-
 #include <iostream>
 #include "ImageLabelsData.h"
 #include "TrainingData.h"
@@ -59,6 +58,21 @@ vector<vector<vector<int>>> CreateVectorOfImages(string file_name) {
 	}
 	vector_image_features.pop_back();
 	return vector_image_features;
+}
+
+vector<vector<int>> ConvertImagetoBinary(vector<vector<char>> current_image) {
+	vector<vector<int>> image_in_binary(28, vector<int>(28));
+
+	for (int i = 0; i < 28; i++) {
+		for (int j = 0; j < 28; j++) {
+			if (current_image[i][j] == ' ') {
+				image_in_binary[i][j] = 0;
+			}
+			else if (current_image[i][j] == '#' || current_image[i][j] == '+') {
+				image_in_binary[i][j] = 1;
+			}
+		}
+	}
 }
 
 

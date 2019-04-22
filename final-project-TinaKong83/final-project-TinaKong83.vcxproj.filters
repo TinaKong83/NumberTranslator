@@ -113,10 +113,10 @@
     <ClInclude Include="..\..\..\..\Program Files (x86)\of_v0.10.1_vs2017_release\addons\ofxGui\src\ofxToggle.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
-    <ClInclude Include="ImageLabelsData.h">
+    <ClInclude Include="src\TrainingData.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\TrainingData.h">
+    <ClInclude Include="ImageLabelsData.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
