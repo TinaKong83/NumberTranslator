@@ -4,6 +4,8 @@
 #include "ofxGui.h"
 #include "../src/ClassifyingData.h"
 #include "../src/ofxCenteredTrueTypeFont.h"
+#include "ImageLabelsData.h"
+#include "TrainingData.h"
 
 //#define MAX_PTS = 3000
 
