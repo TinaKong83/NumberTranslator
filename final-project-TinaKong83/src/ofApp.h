@@ -29,6 +29,7 @@ class ofApp : public ofBaseApp {
 	ofTrueTypeFont english_label;
 	ofTrueTypeFont french_label;
 	ofSoundPlayer play_music;
+	ofSoundPlayer translation_audio;
 
 public:
 	void setup();
@@ -37,6 +38,7 @@ public:
 	void handleUserButton(int x, int y);
 
 	void keyPressed(int key);
+	void setLanguageAudio(int estimated_class);
 	void keyReleased(int key);
 	vector<vector<char>> processImage(ofPixels& image_pixels);
 	void printCompositeImage(vector<vector<char>>& converted_image);
@@ -72,6 +74,7 @@ public:
 	ofColor clicked_button_color = ofColor(230, 230, 100);
 
 	bool language_button_clicked;
-
 	bool user_image_entered = false;
+
+	string translate_audio_file;
 };

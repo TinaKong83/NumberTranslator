@@ -12,9 +12,9 @@ void ofApp::setup(){
 	//translate_button.setup("Translate the number");
 	//translate_button.addListener(this, &ofApp::translatePressed);
 
-	play_music.load("Jarico.mp3");
-	play_music.setLoop(true);
-	play_music.play();
+	//play_music.load("Jarico.mp3");
+	//play_music.setLoop(true);
+	//play_music.play();
 
 	english_button.set(750, 100, 300, 150);
 	french_button.set(1100, 100, 300, 150);
@@ -115,8 +115,94 @@ void ofApp::keyPressed(int key){
 		estimated_class = EstimateImageClass(vector_posterior_probabilities);
 		current_state = OUTPUT;
 		cout << estimated_class;
+		setLanguageAudio(estimated_class);
 
 		//now write the code for outputting the correct audio
+		
+	}
+}
+
+//--------------------------------------------------------------
+void ofApp::setLanguageAudio(int estimated_class) {
+	if (estimated_class == 0) {
+		if (current_language == ENGLISH) {
+			translate_audio_file = "zero.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+			cout << "estimated class audio playing is 0" << endl;
+		}
+	}
+	else if (estimated_class == 1) {
+		if (current_language == ENGLISH) {
+			translate_audio_file = "one.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+			cout << "testing";
+		}
+	}
+	else if (estimated_class == 2) {
+		if (current_language == ENGLISH) {
+			translate_audio_file = "two.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+			cout << "testing";
+		}
+	}
+	else if (estimated_class == 3) {
+		if (current_language == ENGLISH) {
+			translate_audio_file = "three.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+			cout << "testing";
+		}
+	}
+	else if (estimated_class == 4) {
+		if (current_language == ENGLISH) {
+			translate_audio_file = "four.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+			cout << "testing";
+		}
+	}
+	else if (estimated_class == 5) {
+		if (current_language == ENGLISH) {
+			translate_audio_file = "five.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+			cout << "testing";
+		}
+	}
+	else if (estimated_class == 6) {
+		if (current_language == ENGLISH) {
+			translate_audio_file = "six.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+			cout << "testing";
+		}
+	}
+	else if (estimated_class == 7) {
+		if (current_language == ENGLISH) {
+			translate_audio_file = "seven.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+			cout << "testing";
+		}
+	}
+	else if (estimated_class == 8) {
+		if (current_language == ENGLISH) {
+			translate_audio_file = "eight.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+			cout << "testing";
+		}
+	}
+	else if (estimated_class == 9) {
+		if (current_language == ENGLISH) {
+			translate_audio_file = "nine.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+			cout << "testing";
+		}
 	}
 }
 
@@ -183,8 +269,6 @@ void ofApp::mousePressed(int x, int y, int button){
 		current_language = ENGLISH;
 		language_button_clicked = true;
 		cout << "ENGLISH BUTTON CLICKED" << endl;
-		//default_english_button_color.set(0, 0, 0);
-		//change button color?
 	}
 
 }
