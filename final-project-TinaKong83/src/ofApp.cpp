@@ -38,8 +38,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	/*tex1.draw(0, 0);
-	tex2.draw(660, 0);*/
+	//set up canvas
 	ofSetColor(0, 0, 0);
 	instruction.drawString("Please draw a number in the box below.", 90, 90);
 
@@ -47,38 +46,42 @@ void ofApp::draw(){
 	ofFill();
 	ofDrawRectangle(100, 100, 500, 500);
 
-	ofSetColor(0, 0, 0);
-	ofSetLineWidth(100000);
-	ofFill();
-	if (num_pts > 1) {
-		for (int i = 0; i < num_pts - 1; i++) {
-			ofLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y);
-		}
-	}
-	//translate_button.draw();
-
+	//english button
 	ofSetColor(216, 191, 216);
 	ofDrawRectRounded(english_button, 20);
 	ofSetColor(75, 0, 130);
 	english_label.drawString("ENGLISH", 790, 170);
 
+	//french button
 	ofSetColor(216, 191, 216);
 	ofDrawRectRounded(french_button, 20);
 
 	ofSetColor(255, 215, 0);
 	ofDrawRectRounded(button_divider, 20);
 
-	if (user_image_entered) {
-		user_drawing.load("UserDrawing.png");
-		user_drawing.draw(0, 0);
+	if (current_state == CANVAS_STATE) {
+		ofSetColor(0, 0, 0);
+		ofSetLineWidth(100);
+		ofFill();
+		if (num_pts > 1) {
+			for (int i = 0; i < num_pts - 1; i++) {
+				ofLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y);
+			}
+		}
+		if (user_image_entered) {
+			user_drawing.load("UserDrawing.png");
+			//user_drawing.draw(0, 0);
+		}
 	}
 }
 
 void ofApp::handleUserButton(int x, int y) {
-	if (english_button.inside(x, y)) {
+	/*if (english_button.inside(x, y)) {
 		language_button_clicked = true;
+		
+
 		default_english_button_color.set(clicked_button_color);
-	}
+	}*/
 }
 
 //--------------------------------------------------------------
@@ -117,9 +120,11 @@ void ofApp::keyPressed(int key){
 		vector<double> vector_posterior_probabilities = VectorPosteriorProbabilities(vector_label_priors, 
 			vector_class_feature_probability, image_in_binary);
 
-		int estimated_class = EstimateImageClass(vector_posterior_probabilities);
-		cout << "hello" << endl;
+		estimated_class = EstimateImageClass(vector_posterior_probabilities);
+		current_state = OUTPUT;
 		cout << estimated_class;
+
+		//now write the code for outputting the correct audio
 	}
 }
 
@@ -151,7 +156,6 @@ vector<vector<char>> ofApp::processImage(ofPixels& image_pixels) {
 			}
 		}
 	}
-	//cout << "hello";
 	return converted_image;
 }
 
@@ -185,6 +189,8 @@ void ofApp::mousePressed(int x, int y, int button){
 	//handleUserButton(x, y);
 	if (english_button.inside(x, y)) {
 		language_button_clicked = true;
+		current_language = ENGLISH;
+		cout << "ENGLISH BUTTON CLICKED" << endl;
 		//default_english_button_color.set(0, 0, 0);
 		//change button color?
 	}

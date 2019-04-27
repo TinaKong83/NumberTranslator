@@ -11,6 +11,18 @@
 
 class ofApp : public ofBaseApp {
 
+	enum AppState {
+		CANVAS_STATE = 0,
+		OUTPUT
+	};
+
+	enum LanguageState {
+		ENGLISH = 0,
+		FRENCH,
+		SPANISH,
+		CHINESE
+	};
+
 	ofPixels pixels1, pixels2;
 	ofTexture tex1, tex2;
 	ofTrueTypeFont instruction;
@@ -37,6 +49,10 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+
+	AppState current_state = CANVAS_STATE;
+	LanguageState current_language = ENGLISH;
+	int estimated_class;
 
 	ofPoint pts[3000];
 	int num_pts;

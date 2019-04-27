@@ -9,7 +9,7 @@ double CalculateLabelPriorProbability(int label, vector<int>& training_labels) {
 			label_count++;
 		}
 	}
-	double label_prior_probability = (double)label_count / training_labels.size();
+	double label_prior_probability = (double) label_count / training_labels.size();
 	return label_prior_probability;
 }
 
@@ -46,7 +46,7 @@ double FindFeatureProbabilityFromClass(int row, int col, int label,
 
 //Generates a list of 2D vectors (of size 10). Each 2D vector in the list is populated with feature probabilities (for that class). 
 //Writes feature probabilities into white and black pixel files 
-vector<vector<vector<double>>> VectorClassFeatureProbability(vector<vector<vector<int>>>& vector_of_images, 
+vector<vector<vector<double>>> VectorClassFeatureProbability(vector<vector<vector<int>>>& vector_of_images,
 	vector<int>& vector_of_labels) {
 
 	vector<vector<vector<double>>> vector_class_feature_probabilities;
@@ -57,7 +57,7 @@ vector<vector<vector<double>>> VectorClassFeatureProbability(vector<vector<vecto
 			for (int j = 0; j < 28; j++) {
 				vector_of_probabilities[i][j] = FindFeatureProbabilityFromClass(i, j, class_value, vector_of_images, vector_of_labels);
 			}
-			std::cout << std::endl;
+			//std::cout << std::endl;
 		}
 		vector_class_feature_probabilities.push_back(vector_of_probabilities);
 	}
