@@ -67,8 +67,8 @@ public:
 	ofRectangle french_button;
 	ofRectangle button_divider;
 
-	ofColor default_english_button_color;
-	ofColor default_french_button_color;
+	ofColor default_english_button_color = ofColor(75, 0, 130);
+	ofColor default_french_button_color = ofColor(75, 0, 130);
 	ofColor clicked_button_color = ofColor(230, 230, 100);
 
 	bool language_button_clicked;

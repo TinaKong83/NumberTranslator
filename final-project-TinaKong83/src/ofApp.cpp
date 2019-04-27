@@ -2,16 +2,6 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	/*pixels1.allocate(640, 480, OF_IMAGE_COLOR);
-	pixels1.set(0);
-	pixels2 = pixels1;
-	pixels2.setColor(10, 10, ofColor(255, 255, 255));
-
-	tex1.allocate(640, 480, GL_RGB);
-	tex2.allocate(640, 480, GL_RGB);
-	tex1.loadData(pixels1);
-	tex2.loadData(pixels2);
-	*/
 	num_pts = 0;
 	ofSetWindowTitle("Final Project");
 	ofBackground(218, 165, 32);
@@ -27,7 +17,6 @@ void ofApp::setup(){
 	play_music.play();
 
 	english_button.set(750, 100, 300, 150);
-	//button_divider.set(1000, 100, 40, 150);
 	french_button.set(1100, 100, 300, 150);
 }
 
@@ -49,8 +38,11 @@ void ofApp::draw(){
 	//english button
 	ofSetColor(216, 191, 216);
 	ofDrawRectRounded(english_button, 20);
-	ofSetColor(75, 0, 130);
+	ofSetColor(default_english_button_color);
 	english_label.drawString("ENGLISH", 790, 170);
+	if (language_button_clicked && current_language == ENGLISH) {
+		default_english_button_color.set(clicked_button_color);
+	}
 
 	//french button
 	ofSetColor(216, 191, 216);
@@ -188,8 +180,8 @@ void ofApp::mousePressed(int x, int y, int button){
 	num_pts = 0;
 	//handleUserButton(x, y);
 	if (english_button.inside(x, y)) {
-		language_button_clicked = true;
 		current_language = ENGLISH;
+		language_button_clicked = true;
 		cout << "ENGLISH BUTTON CLICKED" << endl;
 		//default_english_button_color.set(0, 0, 0);
 		//change button color?
