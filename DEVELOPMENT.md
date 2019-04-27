@@ -10,3 +10,11 @@ Week 2
 - Saves a user-inputted drawing as a png file
 - Added Naive Bayes code
 - For next week, will need to work on debugging algorithm to correctly classify the image and display the image. I will also work on downloading the proper mp3 files corresponding to each language/number
+
+Week 3
+- Finished debugging Naive Bayes code so that when the user draws a number, it (sometimes) plays an audio clip of the correct English translation
+- Added audio clips of english translations for all possible numbers
+- Modifieed language button GUI to change color when the language is selected
+- Upcoming goal: Add audio clips for other language options (e.g. French, Spanish), add image loading feature to show the pronunciation/appearance of a translaated number
+- Upcoming goal (if time remains): Improve the line drawing tool by using ofBook instead, to allow erasing and multiple strokes
+- Upcoming goal (if time remains): Cut down on the Naive Bayes Algorithm runtime 
