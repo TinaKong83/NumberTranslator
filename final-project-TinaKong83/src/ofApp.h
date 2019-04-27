@@ -45,6 +45,7 @@ public:
 	void mouseMoved(int x, int y);
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
+	void resetButtonColors();
 	void mouseReleased(int x, int y, int button);
 	void mouseEntered(int x, int y);
 	void mouseExited(int x, int y);
@@ -77,4 +78,10 @@ public:
 	bool user_image_entered = false;
 
 	string translate_audio_file;
+
+	string training_images;
+	string training_labels;
+
+	vector<int> vector_training_labels;
+	vector<vector<vector<double>>> vector_class_feature_probability;
 };
