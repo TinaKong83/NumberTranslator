@@ -9,6 +9,8 @@ void ofApp::setup(){
 	english_label.load("OstrichSans-Heavy.otf", 55);
 	french_label.load("OstrichSans-Heavy.otf", 55);
 	spanish_label.load("OstrichSans-Heavy.otf", 55);
+	chinese_label.load("OstrichSans-Heavy.otf", 55);
+	digit_estimate.load("OstrichSans-Heavy.otf", 55);
 
 	//translate_button.setup("Translate the number");
 	//translate_button.addListener(this, &ofApp::translatePressed);
@@ -20,8 +22,8 @@ void ofApp::setup(){
 	english_button.set(750, 100, 300, 150);
 	french_button.set(1100, 100, 300, 150);
 	spanish_button.set(750, 300, 300, 150);
-
-	/*
+	chinese_button.set(1100, 300, 300, 150);
+	
 	training_images = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
 	training_labels = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
 	cout << "creating vector of images" << endl;
@@ -34,8 +36,7 @@ void ofApp::setup(){
 	vector_class_feature_probability = VectorClassFeatureProbability(vector_training_images, vector_training_labels);
 
 	cout << "this part finished" << endl;
-	*/
-
+	
 }
 
 //--------------------------------------------------------------
@@ -80,6 +81,15 @@ void ofApp::draw(){
 		default_spanish_button_color.set(clicked_button_color);
 	}
 
+	//chinese button
+	ofSetColor(216, 191, 216);
+	ofDrawRectRounded(chinese_button, 20);
+	ofSetColor(default_chinese_button_color);
+	chinese_label.drawString("CHINESE", 1150, 370);
+	if (language_button_clicked && current_language == CHINESE) {
+		default_chinese_button_color.set(clicked_button_color);
+	}
+
 	if (current_state == CANVAS_STATE) {
 		ofSetColor(0, 0, 0);
 		ofSetLineWidth(100);
@@ -89,6 +99,12 @@ void ofApp::draw(){
 				ofLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y);
 			}
 		}
+	}
+
+	if (image_classified) {
+		ofSetColor(0, 0, 0);
+		digit_estimate.drawString("The number you drew was: " + estimated_class, 200, 800);
+		//WRITE CODE FOR PRINTING ESTIMATED CLASS
 	}
 }
 
@@ -115,6 +131,7 @@ void ofApp::keyPressed(int key){
 
 		vector<vector<int>> image_in_binary = ConvertImagetoBinary(converted_image);
 
+		/*
 		training_images = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
 		training_labels = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
 		cout << "creating vector of images" << endl;
@@ -127,7 +144,7 @@ void ofApp::keyPressed(int key){
 		vector_class_feature_probability = VectorClassFeatureProbability(vector_training_images, vector_training_labels);
 
 		cout << "this part finished" << endl;
-
+		*/
 		cout << "creating label priors" << endl;
 		vector<double> vector_label_priors = VectorLabelPriors(vector_training_labels);
 
@@ -135,10 +152,9 @@ void ofApp::keyPressed(int key){
 			vector_class_feature_probability, image_in_binary);
 
 		estimated_class = EstimateImageClass(vector_posterior_probabilities);
-		current_state = OUTPUT;
+		image_classified = true;
 		cout << estimated_class;
 		setLanguageAudio(estimated_class);
-		current_state = CANVAS_STATE;
 
 		//now write the code for outputting the correct audio
 		
@@ -152,12 +168,31 @@ void ofApp::setLanguageAudio(int estimated_class) {
 			translate_audio_file = "zero.mp3";
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
-			cout << "estimated class audio playing is 0" << endl;
+		}
+		if (current_language == SPANISH) {
+			translate_audio_file = "cero.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == CHINESE) {
+			translate_audio_file = "ling.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
 		}
 	}
 	else if (estimated_class == 1) {
 		if (current_language == ENGLISH) {
 			translate_audio_file = "one.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == SPANISH) {
+			translate_audio_file = "uno.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == CHINESE) {
+			translate_audio_file = "yi.mp3";
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
 		}
@@ -167,7 +202,16 @@ void ofApp::setLanguageAudio(int estimated_class) {
 			translate_audio_file = "two.mp3";
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
-			cout << "testing";
+		}
+		if (current_language == SPANISH) {
+			translate_audio_file = "dos.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == CHINESE) {
+			translate_audio_file = "er.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
 		}
 	}
 	else if (estimated_class == 3) {
@@ -175,7 +219,16 @@ void ofApp::setLanguageAudio(int estimated_class) {
 			translate_audio_file = "three.mp3";
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
-			cout << "testing";
+		}
+		if (current_language == SPANISH) {
+			translate_audio_file = "tres.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == CHINESE) {
+			translate_audio_file = "san.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
 		}
 	}
 	else if (estimated_class == 4) {
@@ -183,7 +236,16 @@ void ofApp::setLanguageAudio(int estimated_class) {
 			translate_audio_file = "four.mp3";
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
-			cout << "testing";
+		}
+		if (current_language == SPANISH) {
+			translate_audio_file = "cuatro.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == CHINESE) {
+			translate_audio_file = "si.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
 		}
 	}
 	else if (estimated_class == 5) {
@@ -191,7 +253,16 @@ void ofApp::setLanguageAudio(int estimated_class) {
 			translate_audio_file = "five.mp3";
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
-			cout << "testing";
+		}
+		if (current_language == SPANISH) {
+			translate_audio_file = "cinco.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == CHINESE) {
+			translate_audio_file = "wu.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
 		}
 	}
 	else if (estimated_class == 6) {
@@ -199,7 +270,16 @@ void ofApp::setLanguageAudio(int estimated_class) {
 			translate_audio_file = "six.mp3";
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
-			cout << "testing";
+		}
+		if (current_language == SPANISH) {
+			translate_audio_file = "seis.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == CHINESE) {
+			translate_audio_file = "liu.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
 		}
 	}
 	else if (estimated_class == 7) {
@@ -207,7 +287,16 @@ void ofApp::setLanguageAudio(int estimated_class) {
 			translate_audio_file = "seven.mp3";
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
-			cout << "testing";
+		}
+		if (current_language == SPANISH) {
+			translate_audio_file = "siete.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == CHINESE) {
+			translate_audio_file = "qi.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
 		}
 	}
 	else if (estimated_class == 8) {
@@ -215,7 +304,16 @@ void ofApp::setLanguageAudio(int estimated_class) {
 			translate_audio_file = "eight.mp3";
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
-			cout << "testing";
+		}
+		if (current_language == SPANISH) {
+			translate_audio_file = "ocho.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == CHINESE) {
+			translate_audio_file = "ba.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
 		}
 	}
 	else if (estimated_class == 9) {
@@ -223,7 +321,16 @@ void ofApp::setLanguageAudio(int estimated_class) {
 			translate_audio_file = "nine.mp3";
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
-			cout << "testing";
+		}
+		if (current_language == SPANISH) {
+			translate_audio_file = "nueve.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
+		}
+		if (current_language == CHINESE) {
+			translate_audio_file = "jiu.mp3";
+			translation_audio.load(translate_audio_file);
+			translation_audio.play();
 		}
 	}
 }
@@ -305,6 +412,12 @@ void ofApp::mousePressed(int x, int y, int button){
 		language_button_clicked = true;
 		cout << "SPANISH BUTTON CLICKED" << endl;
 	}
+	else if (chinese_button.inside(x, y)) {
+		resetButtonColors();
+		current_language = CHINESE;
+		language_button_clicked = true;
+		cout << "CHINESE BUTTON CLICKED" << endl;
+	}
 
 }
 
@@ -313,6 +426,7 @@ void ofApp::resetButtonColors() {
 	default_english_button_color = ofColor(75, 0, 130);
 	default_french_button_color = ofColor(75, 0, 130);
 	default_spanish_button_color = ofColor(75, 0, 130);
+	default_chinese_button_color = ofColor(75, 0, 130);
 }
 
 //--------------------------------------------------------------

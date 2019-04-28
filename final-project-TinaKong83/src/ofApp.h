@@ -23,12 +23,13 @@ class ofApp : public ofBaseApp {
 		CHINESE
 	};
 
-	ofPixels pixels1, pixels2;
-	ofTexture tex1, tex2;
 	ofTrueTypeFont instruction;
 	ofTrueTypeFont english_label;
 	ofTrueTypeFont french_label;
 	ofTrueTypeFont spanish_label;
+	ofTrueTypeFont chinese_label;
+	ofTrueTypeFont digit_estimate;
+
 	ofSoundPlayer play_music;
 	ofSoundPlayer translation_audio;
 
@@ -70,16 +71,20 @@ public:
 	ofRectangle english_button;
 	ofRectangle french_button;
 	ofRectangle spanish_button;
+	ofRectangle chinese_button;
 
 	ofRectangle button_divider;
 
 	ofColor default_english_button_color = ofColor(75, 0, 130);
 	ofColor default_french_button_color = ofColor(75, 0, 130);
 	ofColor default_spanish_button_color = ofColor(75, 0, 130);
+	ofColor default_chinese_button_color = ofColor(75, 0, 130);
+
 	ofColor clicked_button_color = ofColor(230, 230, 100);
 
 	bool language_button_clicked;
 	bool user_image_entered = false;
+	bool image_classified = false;
 
 	string translate_audio_file;
 
