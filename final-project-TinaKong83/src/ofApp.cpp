@@ -8,6 +8,7 @@ void ofApp::setup(){
 	instruction.load("OstrichSans-Heavy.otf", 31);
 	english_label.load("OstrichSans-Heavy.otf", 55);
 	french_label.load("OstrichSans-Heavy.otf", 55);
+	spanish_label.load("OstrichSans-Heavy.otf", 55);
 
 	//translate_button.setup("Translate the number");
 	//translate_button.addListener(this, &ofApp::translatePressed);
@@ -18,17 +19,14 @@ void ofApp::setup(){
 
 	english_button.set(750, 100, 300, 150);
 	french_button.set(1100, 100, 300, 150);
+	spanish_button.set(750, 300, 300, 150);
 
-	if (user_image_entered) {
-		cout << "USER IMAGE ENTERED" << endl;
-		//user_drawing.draw(0, 0);
-	}
-
+	/*
 	training_images = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
 	training_labels = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
 	cout << "creating vector of images" << endl;
 	vector<vector<vector<int>>> vector_training_images = CreateVectorOfImages(training_images);
-	
+
 	cout << "creating vector of labels" << endl;
 	vector_training_labels = CreateVectorOfLabels(training_labels);
 
@@ -36,6 +34,8 @@ void ofApp::setup(){
 	vector_class_feature_probability = VectorClassFeatureProbability(vector_training_images, vector_training_labels);
 
 	cout << "this part finished" << endl;
+	*/
+
 }
 
 //--------------------------------------------------------------
@@ -71,8 +71,14 @@ void ofApp::draw(){
 		default_french_button_color.set(clicked_button_color);
 	}
 
-	ofSetColor(255, 215, 0);
-	ofDrawRectRounded(button_divider, 20);
+	//spanish button
+	ofSetColor(216, 191, 216);
+	ofDrawRectRounded(spanish_button, 20);
+	ofSetColor(default_spanish_button_color);
+	spanish_label.drawString("SPANISH", 790, 370);
+	if (language_button_clicked && current_language == SPANISH) {
+		default_spanish_button_color.set(clicked_button_color);
+	}
 
 	if (current_state == CANVAS_STATE) {
 		ofSetColor(0, 0, 0);
@@ -99,9 +105,8 @@ void ofApp::keyPressed(int key){
 		user_drawing.grabScreen(100, 100, 500, 500);
 		//user_drawing.setImageType(OF_IMAGE_GRAYSCALE);
 		user_drawing.resize(28, 28);
-		user_drawing.save("UserDrawing.png");
+		//user_drawing.save("UserDrawing.png");
 		user_image_entered = true;
-
 
 		user_drawing.setImageType(OF_IMAGE_GRAYSCALE);
 		ofPixels image_pixels = user_drawing.getPixels();
@@ -109,6 +114,19 @@ void ofApp::keyPressed(int key){
 		printCompositeImage(converted_image);
 
 		vector<vector<int>> image_in_binary = ConvertImagetoBinary(converted_image);
+
+		training_images = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
+		training_labels = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
+		cout << "creating vector of images" << endl;
+		vector<vector<vector<int>>> vector_training_images = CreateVectorOfImages(training_images);
+
+		cout << "creating vector of labels" << endl;
+		vector_training_labels = CreateVectorOfLabels(training_labels);
+
+		cout << "creating feature probabilities" << endl;
+		vector_class_feature_probability = VectorClassFeatureProbability(vector_training_images, vector_training_labels);
+
+		cout << "this part finished" << endl;
 
 		cout << "creating label priors" << endl;
 		vector<double> vector_label_priors = VectorLabelPriors(vector_training_labels);
@@ -281,6 +299,12 @@ void ofApp::mousePressed(int x, int y, int button){
 		language_button_clicked = true;
 		cout << "FRENCH BUTTON CLICKED" << endl;
 	}
+	else if (spanish_button.inside(x, y)) {
+		resetButtonColors();
+		current_language = SPANISH;
+		language_button_clicked = true;
+		cout << "SPANISH BUTTON CLICKED" << endl;
+	}
 
 }
 
@@ -288,6 +312,7 @@ void ofApp::mousePressed(int x, int y, int button){
 void ofApp::resetButtonColors() {
 	default_english_button_color = ofColor(75, 0, 130);
 	default_french_button_color = ofColor(75, 0, 130);
+	default_spanish_button_color = ofColor(75, 0, 130);
 }
 
 //--------------------------------------------------------------
