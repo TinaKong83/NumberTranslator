@@ -4,13 +4,17 @@
 void ofApp::setup(){
 	num_pts = 0;
 	ofSetWindowTitle("Final Project");
-	ofBackground(218, 165, 32);
-	instruction.load("OstrichSans-Heavy.otf", 31);
+	//ofBackground(218, 165, 32);
+	ofBackground(170, 189, 171);
+	instruction.load("JaneRoe-Light.ttf", 31);
 	english_label.load("OstrichSans-Heavy.otf", 55);
 	french_label.load("OstrichSans-Heavy.otf", 55);
 	spanish_label.load("OstrichSans-Heavy.otf", 55);
 	chinese_label.load("OstrichSans-Heavy.otf", 55);
-	digit_estimate.load("OstrichSans-Heavy.otf", 55);
+	digit_estimate.load("JaneRoe-Light.ttf", 31);
+	pronunciation_label.load("JaneRoe-Light.ttf", 31);
+	translation_label.load("JaneRoe-Light.ttf", 31);
+
 
 	//translate_button.setup("Translate the number");
 	//translate_button.addListener(this, &ofApp::translatePressed);
@@ -23,6 +27,7 @@ void ofApp::setup(){
 	french_button.set(1100, 100, 300, 150);
 	spanish_button.set(750, 300, 300, 150);
 	chinese_button.set(1100, 300, 300, 150);
+	
 	
 	training_images = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
 	training_labels = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
@@ -47,10 +52,19 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	//set up canvas
-	ofSetColor(0, 0, 0);
-	instruction.drawString("Please draw a number in the box below.", 90, 90);
 
-	ofSetColor(255, 228, 196);
+	/*
+	ofSetColor(255, 255, 255);
+	chinese_char.load("yi_image.png");
+	chinese_char.draw(990, 500);
+	*/
+
+	ofSetColor(0, 0, 0);
+	instruction.drawString("Please draw a number in the box below.", 80, 80);
+	translation_label.drawString("Translation: ", 790, 600);
+	pronunciation_label.drawString("Pronunciation: ", 790, 800);
+
+	ofSetColor(243, 219, 172);
 	ofFill();
 	ofDrawRectangle(100, 100, 500, 500);
 
@@ -102,11 +116,82 @@ void ofApp::draw(){
 	}
 
 	if (image_classified) {
+		drawClassifiedImage();
+	}
+	/*
+	if (image_classified) {
 		ofSetColor(0, 0, 0);
 		digit_estimate.drawString("The number you drew was: " + estimated_class, 200, 800);
 		//WRITE CODE FOR PRINTING ESTIMATED CLASS
 	}
+	*/
 }
+
+
+//--------------------------------------------------------------
+void ofApp::drawClassifiedImage() {
+	if (language_button_clicked) {
+		chinese_char.clear();
+	}
+	if (current_language == CHINESE) {
+		if (estimated_class == 0) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("ling_image.png");
+			chinese_char.draw(990, 500);
+		}
+		if (estimated_class == 1) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("yi_image.png");
+			chinese_char.draw(990, 500);
+		}
+		if (estimated_class == 2) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("er_image.png");
+			chinese_char.draw(990, 500);
+		}
+		if (estimated_class == 3) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("san_image.png");
+			chinese_char.draw(990, 500);
+		}
+		if (estimated_class == 4) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("si_image.png");
+			chinese_char.draw(990, 500);
+		}
+		if (estimated_class == 5) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("wu_image.png");
+			chinese_char.draw(990, 500);
+		}
+		if (estimated_class == 5) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("wu_image.png");
+			chinese_char.draw(990, 500);
+		}
+		if (estimated_class == 6) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("liu_image.png");
+			chinese_char.draw(990, 500);
+		}
+		if (estimated_class == 7) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("qi_image.png");
+			chinese_char.draw(990, 500);
+		}
+		if (estimated_class == 8) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("ba_image.png");
+			chinese_char.draw(990, 500);
+		}
+		if (estimated_class == 9) {
+			ofSetColor(255, 255, 255);
+			chinese_char.load("jiu_image.png");
+			chinese_char.draw(990, 500);
+		}
+	}
+}
+
 
 void ofApp::handleUserButton(int x, int y) {
 	/*if (english_button.inside(x, y)) {

@@ -29,6 +29,10 @@ class ofApp : public ofBaseApp {
 	ofTrueTypeFont spanish_label;
 	ofTrueTypeFont chinese_label;
 	ofTrueTypeFont digit_estimate;
+	ofTrueTypeFont pronunciation_label;
+	ofTrueTypeFont translation_label;
+
+	ofTrueTypeFont pronunciation_output;
 
 	ofSoundPlayer play_music;
 	ofSoundPlayer translation_audio;
@@ -37,6 +41,7 @@ public:
 	void setup();
 	void update();
 	void draw();
+	void drawClassifiedImage();
 	void handleUserButton(int x, int y);
 
 	void keyPressed(int key);
@@ -66,7 +71,8 @@ public:
 	ofxButton translate_button;
 
 	ofImage user_drawing;
-	ofImage image_display;
+	ofImage chinese_char;
+
 
 	ofRectangle english_button;
 	ofRectangle french_button;
