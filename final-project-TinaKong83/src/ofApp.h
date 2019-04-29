@@ -32,7 +32,9 @@ class ofApp : public ofBaseApp {
 	ofTrueTypeFont pronunciation_label;
 	ofTrueTypeFont translation_label;
 
+	ofTrueTypeFont character_label;
 	ofTrueTypeFont pronunciation_output;
+	ofTrueTypeFont translation_output;
 
 	ofSoundPlayer play_music;
 	ofSoundPlayer translation_audio;
