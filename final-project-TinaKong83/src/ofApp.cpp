@@ -24,13 +24,13 @@ void ofApp::setup(){
 	spanish_button.set(750, 300, 300, 150);
 	chinese_button.set(1100, 300, 300, 150);
 	
-	/*
-	training_images = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
-	training_labels = "C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
+	training_images = 
+		"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
+	training_labels = 
+		"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
 	vector<vector<vector<int>>> vector_training_images = CreateVectorOfImages(training_images);
 	vector_training_labels = CreateVectorOfLabels(training_labels);
 	vector_class_feature_probability = VectorClassFeatureProbability(vector_training_images, vector_training_labels);
-	*/
 }
 
 //--------------------------------------------------------------
@@ -263,6 +263,10 @@ void ofApp::drawClassifiedImage() {
 			pronunciation_output.drawString("Neuf", 1020, 800);
 		}
 	}
+	else if (estimated_class == -1) {
+		translation_output.drawString("Invalid", 1020, 600);
+		pronunciation_output.drawString("Invalid", 1020, 800);
+	}
 }
 
 void ofApp::handleUserButton(int x, int y) {
@@ -287,6 +291,7 @@ void ofApp::keyPressed(int key){
 		vector<vector<char>> converted_image = processImage(image_pixels);
 		vector<vector<int>> image_in_binary = ConvertImagetoBinary(converted_image);
 
+		/*
 		training_images = 
 			"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
 		training_labels = 
@@ -301,7 +306,7 @@ void ofApp::keyPressed(int key){
 		vector_class_feature_probability = VectorClassFeatureProbability(vector_training_images, vector_training_labels);
 
 		cout << "this part finished" << endl;
-		
+		*/
 		vector<double> vector_label_priors = VectorLabelPriors(vector_training_labels);
 		vector<double> vector_posterior_probabilities = VectorPosteriorProbabilities(vector_label_priors, 
 			vector_class_feature_probability, image_in_binary);
@@ -533,6 +538,11 @@ void ofApp::setLanguageAudio(int estimated_class) {
 			translation_audio.load(translate_audio_file);
 			translation_audio.play();
 		}
+	}
+	else if (estimated_class == -1) {
+		translate_audio_file = "Computer Error-Sound.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
 	}
 }
 
