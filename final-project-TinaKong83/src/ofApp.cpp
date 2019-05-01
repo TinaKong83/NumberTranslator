@@ -5,19 +5,7 @@ void ofApp::setup(){
 	num_pts = 0;
 	ofSetWindowTitle("Final Project");
 	ofBackground(170, 189, 171);
-	instruction.load("JaneRoe-Light.ttf", 31);
-	english_label.load("OstrichSans-Heavy.otf", 55);
-	french_label.load("OstrichSans-Heavy.otf", 55);
-	spanish_label.load("OstrichSans-Heavy.otf", 55);
-	chinese_label.load("OstrichSans-Heavy.otf", 55);
-	digit_estimate.load("JaneRoe-Light.ttf", 31);
-
-	character_label.load("JaneRoe-Light.ttf", 31);
-	pronunciation_label.load("JaneRoe-Light.ttf", 31);
-	translation_label.load("JaneRoe-Light.ttf", 31);
-
-	pronunciation_output.load("happy-times-at-the-ikob.otf", 50);
-	translation_output.load("happy-times-at-the-ikob.otf", 50);
+	loadFonts();
 
 	english_button.set(750, 100, 300, 150);
 	french_button.set(1100, 100, 300, 150);
@@ -34,8 +22,18 @@ void ofApp::setup(){
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
-
+void ofApp::loadFonts() {
+	instruction.load("JaneRoe-Light.ttf", 31);
+	english_label.load("OstrichSans-Heavy.otf", 55);
+	french_label.load("OstrichSans-Heavy.otf", 55);
+	spanish_label.load("OstrichSans-Heavy.otf", 55);
+	chinese_label.load("OstrichSans-Heavy.otf", 55);
+	digit_estimate.load("JaneRoe-Light.ttf", 31);
+	character_label.load("JaneRoe-Light.ttf", 31);
+	pronunciation_label.load("JaneRoe-Light.ttf", 31);
+	translation_label.load("JaneRoe-Light.ttf", 31);
+	pronunciation_output.load("happy-times-at-the-ikob.otf", 50);
+	translation_output.load("happy-times-at-the-ikob.otf", 50);
 }
 
 //--------------------------------------------------------------
@@ -49,42 +47,10 @@ void ofApp::draw(){
 	ofSetColor(243, 219, 172);
 	ofFill();
 	ofDrawRectangle(100, 100, 500, 500);
-
-	//english button
-	ofSetColor(216, 191, 216);
-	ofDrawRectRounded(english_button, 20);
-	ofSetColor(default_english_button_color);
-	english_label.drawString("ENGLISH", 790, 170);
-	if (language_button_clicked && current_language == ENGLISH) {
-		default_english_button_color.set(clicked_button_color);
-	}
-
-	//french button
-	ofSetColor(216, 191, 216);
-	ofDrawRectRounded(french_button, 20);
-	ofSetColor(default_french_button_color);
-	french_label.drawString("FRENCH", 1150, 170);
-	if (language_button_clicked && current_language == FRENCH) {
-		default_french_button_color.set(clicked_button_color);
-	}
-
-	//spanish button
-	ofSetColor(216, 191, 216);
-	ofDrawRectRounded(spanish_button, 20);
-	ofSetColor(default_spanish_button_color);
-	spanish_label.drawString("SPANISH", 790, 370);
-	if (language_button_clicked && current_language == SPANISH) {
-		default_spanish_button_color.set(clicked_button_color);
-	}
-
-	//chinese button
-	ofSetColor(216, 191, 216);
-	ofDrawRectRounded(chinese_button, 20);
-	ofSetColor(default_chinese_button_color);
-	chinese_label.drawString("CHINESE", 1150, 370);
-	if (language_button_clicked && current_language == CHINESE) {
-		default_chinese_button_color.set(clicked_button_color);
-	}
+	setupEnglishButton();
+	setupFrenchButton();
+	setupSpanishButton();
+	setupChineseButton();
 
 	if (current_state == CANVAS_STATE) {
 		ofSetColor(0, 0, 0);
@@ -96,21 +62,59 @@ void ofApp::draw(){
 			}
 		}
 	}
-
 	if (image_classified) {
-		drawClassifiedImage();
+		translateClassifiedImage();
 	}
-	/*
-	if (image_classified) {
-		ofSetColor(0, 0, 0);
-		digit_estimate.drawString("The number you drew was: " + estimated_class, 200, 800);
-		//WRITE CODE FOR PRINTING ESTIMATED CLASS
-	}
-	*/
 }
 
 //--------------------------------------------------------------
-void ofApp::drawClassifiedImage() {
+void ofApp::setupEnglishButton() {
+	ofSetColor(216, 191, 216);
+	ofDrawRectRounded(english_button, 20);
+	ofSetColor(default_english_button_color);
+	english_label.drawString("ENGLISH", 790, 170);
+
+	//Allows button text color to change when button is clicked
+	if (language_button_clicked && current_language == ENGLISH) {
+		default_english_button_color.set(clicked_button_color);
+	}
+}
+//--------------------------------------------------------------
+void ofApp::setupFrenchButton() {
+	ofSetColor(216, 191, 216);
+	ofDrawRectRounded(french_button, 20);
+	ofSetColor(default_french_button_color);
+	french_label.drawString("FRENCH", 1150, 170);
+
+	if (language_button_clicked && current_language == FRENCH) {
+		default_french_button_color.set(clicked_button_color);
+	}
+}
+//--------------------------------------------------------------
+void ofApp::setupSpanishButton() {
+	ofSetColor(216, 191, 216);
+	ofDrawRectRounded(spanish_button, 20);
+	ofSetColor(default_spanish_button_color);
+	spanish_label.drawString("SPANISH", 790, 370);
+
+	if (language_button_clicked && current_language == SPANISH) {
+		default_spanish_button_color.set(clicked_button_color);
+	}
+}
+//--------------------------------------------------------------
+void ofApp::setupChineseButton() {
+	ofSetColor(216, 191, 216);
+	ofDrawRectRounded(chinese_button, 20);
+	ofSetColor(default_chinese_button_color);
+	chinese_label.drawString("CHINESE", 1150, 370);
+
+	if (language_button_clicked && current_language == CHINESE) {
+		default_chinese_button_color.set(clicked_button_color);
+	}
+}
+
+//--------------------------------------------------------------
+void ofApp::translateClassifiedImage() {
 	if (estimated_class == 0) {
 		translation_output.drawString("Zero", 1020, 600);
 		if (current_language == CHINESE) {
@@ -125,8 +129,7 @@ void ofApp::drawClassifiedImage() {
 		else if (current_language == FRENCH) {
 			pronunciation_output.drawString("Zero", 1020, 800);
 		}
-	}
-	if (estimated_class == 1) {
+	} else if (estimated_class == 1) {
 		translation_output.drawString("One", 1020, 600);
 		if (current_language == CHINESE) {
 			chinese_char.load("yi_image.png");
@@ -140,8 +143,7 @@ void ofApp::drawClassifiedImage() {
 		else if (current_language == FRENCH) {
 			pronunciation_output.drawString("Un", 1020, 800);
 		}
-	}
-	if (estimated_class == 2) {
+	} else if (estimated_class == 2) {
 		translation_output.drawString("Two", 1020, 600);
 		if (current_language == CHINESE) {
 			chinese_char.load("er_image.png");
@@ -155,9 +157,7 @@ void ofApp::drawClassifiedImage() {
 		else if (current_language == FRENCH) {
 			pronunciation_output.drawString("Deux", 1020, 800);
 		}
-
-	}
-	if (estimated_class == 3) {
+	} else if (estimated_class == 3) {
 		translation_output.drawString("Three", 1020, 600);
 		if (current_language == CHINESE) {
 			chinese_char.load("san_image.png");
@@ -171,9 +171,7 @@ void ofApp::drawClassifiedImage() {
 		else if (current_language == FRENCH) {
 			pronunciation_output.drawString("Trois", 1020, 800);
 		}
-
-	}
-	if (estimated_class == 4) {
+	} else if (estimated_class == 4) {
 		translation_output.drawString("Four", 1020, 600);
 		if (current_language == CHINESE) {
 			chinese_char.load("si_image.png");
@@ -187,8 +185,7 @@ void ofApp::drawClassifiedImage() {
 		else if (current_language == FRENCH) {
 			pronunciation_output.drawString("Quatre", 1020, 800);
 		}
-	}
-	if (estimated_class == 5) {
+	} else if (estimated_class == 5) {
 		translation_output.drawString("Five", 1020, 600);
 		if (current_language == CHINESE) {
 			chinese_char.load("wu_image.png");
@@ -202,8 +199,7 @@ void ofApp::drawClassifiedImage() {
 		else if (current_language == FRENCH) {
 			pronunciation_output.drawString("Cinq", 1020, 800);
 		}
-	}
-	if (estimated_class == 6) {
+	} else if (estimated_class == 6) {
 		translation_output.drawString("Six", 1020, 600);
 		if (current_language == CHINESE) {
 			chinese_char.load("liu_image.png");
@@ -217,8 +213,7 @@ void ofApp::drawClassifiedImage() {
 		else if (current_language == FRENCH) {
 			pronunciation_output.drawString("Six", 1020, 800);
 		}
-	}
-	if (estimated_class == 7) {
+	} else if (estimated_class == 7) {
 		translation_output.drawString("Seven", 1020, 600);
 		if (current_language == CHINESE) {
 			chinese_char.load("qi_image.png");
@@ -232,8 +227,7 @@ void ofApp::drawClassifiedImage() {
 		else if (current_language == FRENCH) {
 			pronunciation_output.drawString("Sept", 1020, 800);
 		}
-	}
-	if (estimated_class == 8) {
+	} else if (estimated_class == 8) {
 		translation_output.drawString("Eight", 1020, 600);
 		if (current_language == CHINESE) {
 			chinese_char.load("ba_image.png");
@@ -247,8 +241,7 @@ void ofApp::drawClassifiedImage() {
 		else if (current_language == FRENCH) {
 			pronunciation_output.drawString("Huit", 1020, 800);
 		}
-	}
-	if (estimated_class == 9) {
+	} else if (estimated_class == 9) {
 		translation_output.drawString("Nine", 1020, 600);
 		if (current_language == CHINESE) {
 			chinese_char.load("jiu_image.png");
@@ -262,18 +255,10 @@ void ofApp::drawClassifiedImage() {
 		else if (current_language == FRENCH) {
 			pronunciation_output.drawString("Neuf", 1020, 800);
 		}
-	}
-	else if (estimated_class == -1) {
+	} else if (estimated_class == -1) {
 		translation_output.drawString("Invalid", 1020, 600);
 		pronunciation_output.drawString("Invalid", 1020, 800);
 	}
-}
-
-void ofApp::handleUserButton(int x, int y) {
-	/*if (english_button.inside(x, y)) {
-		language_button_clicked = true;
-		default_english_button_color.set(clicked_button_color);
-	}*/
 }
 
 //--------------------------------------------------------------
@@ -296,16 +281,12 @@ void ofApp::keyPressed(int key){
 			"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
 		training_labels = 
 			"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
-		cout << "creating vector of images" << endl;
 		vector<vector<vector<int>>> vector_training_images = CreateVectorOfImages(training_images);
 
-		cout << "creating vector of labels" << endl;
 		vector_training_labels = CreateVectorOfLabels(training_labels);
 
-		cout << "creating feature probabilities" << endl;
 		vector_class_feature_probability = VectorClassFeatureProbability(vector_training_images, vector_training_labels);
 
-		cout << "this part finished" << endl;
 		*/
 		vector<double> vector_label_priors = VectorLabelPriors(vector_training_labels);
 		vector<double> vector_posterior_probabilities = VectorPosteriorProbabilities(vector_label_priors, 
@@ -320,234 +301,273 @@ void ofApp::keyPressed(int key){
 //--------------------------------------------------------------
 void ofApp::setLanguageAudio(int estimated_class) {
 	if (estimated_class == 0) {
-		if (current_language == ENGLISH) {
-			translate_audio_file = "zero.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == SPANISH) {
-			translate_audio_file = "cero.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == CHINESE) {
-			translate_audio_file = "ling.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == FRENCH) {
-			translate_audio_file = "french_zero.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
+		audioOfZero();
 	}
 	else if (estimated_class == 1) {
-		if (current_language == ENGLISH) {
-			translate_audio_file = "one.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == SPANISH) {
-			translate_audio_file = "uno.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == CHINESE) {
-			translate_audio_file = "yi.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == FRENCH) {
-			translate_audio_file = "un.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
+		audioOfOne();
 	}
 	else if (estimated_class == 2) {
-		if (current_language == ENGLISH) {
-			translate_audio_file = "two.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == SPANISH) {
-			translate_audio_file = "dos.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == CHINESE) {
-			translate_audio_file = "er.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == FRENCH) {
-			translate_audio_file = "deux.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
+		audioOfTwo();
 	}
 	else if (estimated_class == 3) {
-		if (current_language == ENGLISH) {
-			translate_audio_file = "three.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == SPANISH) {
-			translate_audio_file = "tres.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == CHINESE) {
-			translate_audio_file = "san.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == FRENCH) {
-			translate_audio_file = "trois.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
+		audioOfThree();
 	}
 	else if (estimated_class == 4) {
-		if (current_language == ENGLISH) {
-			translate_audio_file = "four.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == SPANISH) {
-			translate_audio_file = "cuatro.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == CHINESE) {
-			translate_audio_file = "si.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == FRENCH) {
-			translate_audio_file = "quatre.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
+		audioOfFour();
 	}
 	else if (estimated_class == 5) {
-		if (current_language == ENGLISH) {
-			translate_audio_file = "five.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == SPANISH) {
-			translate_audio_file = "cinco.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == CHINESE) {
-			translate_audio_file = "wu.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == FRENCH) {
-			translate_audio_file = "cinq.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
+		audioOfFive();
 	}
 	else if (estimated_class == 6) {
-		if (current_language == ENGLISH) {
-			translate_audio_file = "six.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == SPANISH) {
-			translate_audio_file = "seis.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == CHINESE) {
-			translate_audio_file = "liu.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == FRENCH) {
-			translate_audio_file = "french_six.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
+		audioOfSix();
 	}
 	else if (estimated_class == 7) {
-		if (current_language == ENGLISH) {
-			translate_audio_file = "seven.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == SPANISH) {
-			translate_audio_file = "siete.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == CHINESE) {
-			translate_audio_file = "qi.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == FRENCH) {
-			translate_audio_file = "sept.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
+		audioOfSeven();
 	}
 	else if (estimated_class == 8) {
-		if (current_language == ENGLISH) {
-			translate_audio_file = "eight.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == SPANISH) {
-			translate_audio_file = "ocho.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == CHINESE) {
-			translate_audio_file = "ba.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == FRENCH) {
-			translate_audio_file = "huit.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
+		audioOfEight();
 	}
 	else if (estimated_class == 9) {
-		if (current_language == ENGLISH) {
-			translate_audio_file = "nine.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == SPANISH) {
-			translate_audio_file = "nueve.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == CHINESE) {
-			translate_audio_file = "jiu.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
-		if (current_language == FRENCH) {
-			translate_audio_file = "neuf.mp3";
-			translation_audio.load(translate_audio_file);
-			translation_audio.play();
-		}
+		audioOfNine();
 	}
 	else if (estimated_class == -1) {
-		translate_audio_file = "Computer Error-Sound.mp3";
+		audioOfInvalidNumber();
+	}
+}
+
+//--------------------------------------------------------------
+void ofApp::audioOfZero() {
+	if (current_language == ENGLISH) {
+		translate_audio_file = "zero.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	} else if (current_language == SPANISH) {
+		translate_audio_file = "cero.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	} else if (current_language == CHINESE) {
+		translate_audio_file = "ling.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	} else if (current_language == FRENCH) {
+		translate_audio_file = "french_zero.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+}
+//--------------------------------------------------------------
+void ofApp::audioOfOne() {
+	if (current_language == ENGLISH) {
+		translate_audio_file = "one.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == SPANISH) {
+		translate_audio_file = "uno.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == CHINESE) {
+		translate_audio_file = "yi.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == FRENCH) {
+		translate_audio_file = "un.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+
+}//--------------------------------------------------------------
+void ofApp::audioOfTwo() {
+	if (current_language == ENGLISH) {
+		translate_audio_file = "two.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == SPANISH) {
+		translate_audio_file = "dos.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == CHINESE) {
+		translate_audio_file = "er.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == FRENCH) {
+		translate_audio_file = "deux.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+
+}//--------------------------------------------------------------
+void ofApp::audioOfThree() {
+	if (current_language == ENGLISH) {
+		translate_audio_file = "three.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == SPANISH) {
+		translate_audio_file = "tres.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == CHINESE) {
+		translate_audio_file = "san.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == FRENCH) {
+		translate_audio_file = "trois.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+
+}//--------------------------------------------------------------
+void ofApp::audioOfFour() {
+	if (current_language == ENGLISH) {
+		translate_audio_file = "four.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == SPANISH) {
+		translate_audio_file = "cuatro.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == CHINESE) {
+		translate_audio_file = "si.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == FRENCH) {
+		translate_audio_file = "quatre.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+
+}//--------------------------------------------------------------
+void ofApp::audioOfFive() {
+	if (current_language == ENGLISH) {
+		translate_audio_file = "five.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == SPANISH) {
+		translate_audio_file = "cinco.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == CHINESE) {
+		translate_audio_file = "wu.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == FRENCH) {
+		translate_audio_file = "cinq.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+
+}//--------------------------------------------------------------
+void ofApp::audioOfSix() {
+	if (current_language == ENGLISH) {
+		translate_audio_file = "six.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == SPANISH) {
+		translate_audio_file = "seis.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == CHINESE) {
+		translate_audio_file = "liu.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == FRENCH) {
+		translate_audio_file = "french_six.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+
+}//--------------------------------------------------------------
+void ofApp::audioOfSeven() {
+	if (current_language == ENGLISH) {
+		translate_audio_file = "seven.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == SPANISH) {
+		translate_audio_file = "siete.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == CHINESE) {
+		translate_audio_file = "qi.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == FRENCH) {
+		translate_audio_file = "sept.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+
+}//--------------------------------------------------------------
+void ofApp::audioOfEight() {
+	if (current_language == ENGLISH) {
+		translate_audio_file = "eight.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == SPANISH) {
+		translate_audio_file = "ocho.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == CHINESE) {
+		translate_audio_file = "ba.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == FRENCH) {
+		translate_audio_file = "huit.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+
+}//--------------------------------------------------------------
+void ofApp::audioOfNine() {
+	if (current_language == ENGLISH) {
+		translate_audio_file = "nine.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == SPANISH) {
+		translate_audio_file = "nueve.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == CHINESE) {
+		translate_audio_file = "jiu.mp3";
+		translation_audio.load(translate_audio_file);
+		translation_audio.play();
+	}
+	if (current_language == FRENCH) {
+		translate_audio_file = "neuf.mp3";
 		translation_audio.load(translate_audio_file);
 		translation_audio.play();
 	}
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key){
+void ofApp::audioOfInvalidNumber() {
+	translate_audio_file = "Computer Error-Sound.mp3";
+	translation_audio.load(translate_audio_file);
+	translation_audio.play();
 }
 
 //--------------------------------------------------------------
@@ -584,11 +604,6 @@ void ofApp::printCompositeImage(vector<vector<char>>& converted_image) {
 		}
 		cout << endl;
 	}
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
-
 }
 
 //--------------------------------------------------------------
@@ -630,34 +645,4 @@ void ofApp::resetButtonColors() {
 	default_french_button_color = ofColor(75, 0, 130);
 	default_spanish_button_color = ofColor(75, 0, 130);
 	default_chinese_button_color = ofColor(75, 0, 130);
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo){ 
-
 }

@@ -61,10 +61,10 @@ vector<vector<vector<int>>> CreateVectorOfImages(string file_name) {
 }
 
 vector<vector<int>> ConvertImagetoBinary(vector<vector<char>> current_image) {
-	vector<vector<int>> image_in_binary(28, vector<int>(28));
+	vector<vector<int>> image_in_binary(kImageSize, vector<int>(kImageSize));
 
-	for (int i = 0; i < 28; i++) {
-		for (int j = 0; j < 28; j++) {
+	for (int i = 0; i < kImageSize; i++) {
+		for (int j = 0; j < kImageSize; j++) {
 			if (current_image[i][j] == ' ') {
 				image_in_binary[i][j] = 0;
 			}
@@ -75,7 +75,6 @@ vector<vector<int>> ConvertImagetoBinary(vector<vector<char>> current_image) {
 	}
 	return image_in_binary;
 }
-
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

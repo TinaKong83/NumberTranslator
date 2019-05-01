@@ -41,26 +41,33 @@ class ofApp : public ofBaseApp {
 
 public:
 	void setup();
-	void update();
+	void loadFonts();
 	void draw();
-	void drawClassifiedImage();
-	void handleUserButton(int x, int y);
+	void translateClassifiedImage();
+	void setupEnglishButton();
+	void setupFrenchButton();
+	void setupSpanishButton();
+	void setupChineseButton();
+
+	void audioOfZero();
+	void audioOfOne();
+	void audioOfTwo();
+	void audioOfThree();
+	void audioOfFour();
+	void audioOfFive();
+	void audioOfSix();
+	void audioOfSeven();
+	void audioOfEight();
+	void audioOfNine();
+	void audioOfInvalidNumber();
 
 	void keyPressed(int key);
 	void setLanguageAudio(int estimated_class);
-	void keyReleased(int key);
 	vector<vector<char>> processImage(ofPixels& image_pixels);
 	void printCompositeImage(vector<vector<char>>& converted_image);
-	void mouseMoved(int x, int y);
 	void mouseDragged(int x, int y, int button);
 	void mousePressed(int x, int y, int button);
 	void resetButtonColors();
-	void mouseReleased(int x, int y, int button);
-	void mouseEntered(int x, int y);
-	void mouseExited(int x, int y);
-	void windowResized(int w, int h);
-	void dragEvent(ofDragInfo dragInfo);
-	void gotMessage(ofMessage msg);
 
 	AppState current_state = CANVAS_STATE;
 	LanguageState current_language = ENGLISH;
@@ -69,12 +76,10 @@ public:
 	ofPoint pts[3000];
 	int num_pts;
 
-	//void translatePressed();
 	ofxButton translate_button;
 
 	ofImage user_drawing;
 	ofImage chinese_char;
-
 
 	ofRectangle english_button;
 	ofRectangle french_button;

@@ -40,7 +40,8 @@ double FindFeatureProbabilityFromClass(int row, int col, int label,
 			}
 		}
 	}
-	double feature_probability = (laplace_smoothing_factor + count_position_matches_feature) / (2 * laplace_smoothing_factor + count_label_occurrence);
+	double feature_probability = (laplace_smoothing_factor + count_position_matches_feature) 
+		/ (2 * laplace_smoothing_factor + count_label_occurrence);
 	return feature_probability;
 }
 
@@ -55,7 +56,8 @@ vector<vector<vector<double>>> VectorClassFeatureProbability(vector<vector<vecto
 		vector<vector<double>> vector_of_probabilities(28, vector<double>(28, 0.0));
 		for (int i = 0; i < 28; i++) {
 			for (int j = 0; j < 28; j++) {
-				vector_of_probabilities[i][j] = FindFeatureProbabilityFromClass(i, j, class_value, vector_of_images, vector_of_labels);
+				vector_of_probabilities[i][j] = FindFeatureProbabilityFromClass(i, j, class_value, 
+					vector_of_images, vector_of_labels);
 			}
 			//std::cout << std::endl;
 		}

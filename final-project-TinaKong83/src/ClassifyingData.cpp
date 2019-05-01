@@ -61,8 +61,8 @@ int EstimateImageClass(vector<double>& vector_posterior_probabilities_per_class)
 			estimated_class = current_class;
 		}
 	}
-
-	if (max_posterior_probability < -400) {
+	//Accounts for user drawing some invalid number
+	if (max_posterior_probability < kInvalidPosterity) {
 		estimated_class = -1;
 	}
 	return estimated_class;
