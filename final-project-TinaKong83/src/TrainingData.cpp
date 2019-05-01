@@ -51,7 +51,6 @@ vector<vector<vector<double>>> VectorClassFeatureProbability(vector<vector<vecto
 	vector<int>& vector_of_labels) {
 
 	vector<vector<vector<double>>> vector_class_feature_probabilities;
-
 	for (int class_value = 0; class_value < 10; class_value++) {
 		vector<vector<double>> vector_of_probabilities(28, vector<double>(28, 0.0));
 		for (int i = 0; i < 28; i++) {
@@ -59,7 +58,6 @@ vector<vector<vector<double>>> VectorClassFeatureProbability(vector<vector<vecto
 				vector_of_probabilities[i][j] = FindFeatureProbabilityFromClass(i, j, class_value, 
 					vector_of_images, vector_of_labels);
 			}
-			//std::cout << std::endl;
 		}
 		vector_class_feature_probabilities.push_back(vector_of_probabilities);
 	}

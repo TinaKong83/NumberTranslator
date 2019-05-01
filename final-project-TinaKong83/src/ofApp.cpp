@@ -6,26 +6,17 @@ void ofApp::setup(){
 	ofSetWindowTitle("Final Project");
 	ofBackground(170, 189, 171);
 	loadFonts();
-
-	english_button_.set(750, 100, 300, 150);
-	french_button_.set(1100, 100, 300, 150);
-	spanish_button_.set(750, 300, 300, 150);
-	chinese_button_.set(1100, 300, 300, 150);
 	
-	/*
-	training_images = 
-		"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
-	training_labels = 
-		"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
-	vector<vector<vector<int>>> vector_training_images = CreateVectorOfImages(training_images);
-	vector_training_labels = CreateVectorOfLabels(training_labels);
-	vector_class_feature_probability = VectorClassFeatureProbability(vector_training_images, vector_training_labels);
-	*/
+	training_images_ = kTrainingImagesPath_;
+	training_labels_ = kTrainingLabelsPath_;
+	vector<vector<vector<int>>> vector_training_images = CreateVectorOfImages(training_images_);
+	vector_training_labels_ = CreateVectorOfLabels(training_labels_);
+	vector_class_feature_probability_ = VectorClassFeatureProbability(vector_training_images, vector_training_labels_);
 }
 
 //--------------------------------------------------------------
 void ofApp::loadFonts() {
-	instruction_.load("JaneRoe-Light.ttf", 31);
+	canvas_instruction_.load("JaneRoe-Light.ttf", 31);
 	english_label_.load("OstrichSans-Heavy.otf", 55);
 	french_label_.load("OstrichSans-Heavy.otf", 55);
 	spanish_label_.load("OstrichSans-Heavy.otf", 55);
@@ -40,39 +31,38 @@ void ofApp::loadFonts() {
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofSetColor(0, 0, 0);
-	instruction_.drawString("Please draw a number in the box below", 80, 80);
-	translation_label_.drawString("Translation: ", 790, 600);
-	pronunciation_label_.drawString("Pronunciation: ", 790, 800);
-	character_label_.drawString("Character: ", 1300, 600);
+		ofBackground(170, 189, 171);
+		setupEnglishButton();
+		setupFrenchButton();
+		setupSpanishButton();
+		setupChineseButton();
 
-	ofSetColor(243, 219, 172);
-	ofFill();
-	canvas_.set(100, 100, 500, 500);
-	ofDrawRectangle(canvas_);
+		ofSetColor(0, 0, 0);
+		canvas_instruction_.drawString("Please draw a number in the box below", 80, 80);
+		translation_label_.drawString("Translation: ", 790, 600);
+		pronunciation_label_.drawString("Pronunciation: ", 790, 800);
+		character_label_.drawString("Character: ", 1300, 600);
 
-	setupEnglishButton();
-	setupFrenchButton();
-	setupSpanishButton();
-	setupChineseButton();
+		ofSetColor(243, 219, 172);
+		ofFill();
+		canvas_.set(100, 100, 500, 500);
+		ofDrawRectangle(canvas_);
 
-	if (current_state_ == CANVAS_STATE) {
 		ofSetColor(0, 0, 0);
 		ofSetLineWidth(100);
-		ofFill();
 		if (num_pts_ > 1) {
 			for (int i = 0; i < num_pts_ - 1; i++) {
 				ofLine(pts[i].x, pts[i].y, pts[i + 1].x, pts[i + 1].y);
 			}
 		}
-	}
-	if (image_classified_) {
-		translateClassifiedImage();
-	}
+		if (image_classified_) {
+			translateClassifiedImage();
+		}
 }
 
 //--------------------------------------------------------------
 void ofApp::setupEnglishButton() {
+	english_button_.set(750, 100, 300, 150);
 	ofSetColor(216, 191, 216);
 	ofDrawRectRounded(english_button_, 20);
 	ofSetColor(default_english_button_color_);
@@ -85,6 +75,7 @@ void ofApp::setupEnglishButton() {
 }
 //--------------------------------------------------------------
 void ofApp::setupFrenchButton() {
+	french_button_.set(1100, 100, 300, 150);
 	ofSetColor(216, 191, 216);
 	ofDrawRectRounded(french_button_, 20);
 	ofSetColor(default_french_button_color_);
@@ -96,6 +87,7 @@ void ofApp::setupFrenchButton() {
 }
 //--------------------------------------------------------------
 void ofApp::setupSpanishButton() {
+	spanish_button_.set(750, 300, 300, 150);
 	ofSetColor(216, 191, 216);
 	ofDrawRectRounded(spanish_button_, 20);
 	ofSetColor(default_spanish_button_color_);
@@ -107,6 +99,7 @@ void ofApp::setupSpanishButton() {
 }
 //--------------------------------------------------------------
 void ofApp::setupChineseButton() {
+	chinese_button_.set(1100, 300, 300, 150);
 	ofSetColor(216, 191, 216);
 	ofDrawRectRounded(chinese_button_, 20);
 	ofSetColor(default_chinese_button_color_);
@@ -268,6 +261,8 @@ void ofApp::translateClassifiedImage() {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 	int upper_key = toupper(key);
+
+	//Completely clear drawing
 	if (upper_key == 'C') {
 		num_pts_ = 0;
 	}
@@ -280,6 +275,7 @@ void ofApp::keyPressed(int key){
 		vector<vector<char>> converted_image = processImage(image_pixels);
 		vector<vector<int>> image_in_binary = ConvertImagetoBinary(converted_image);
 		
+		/*
 		training_images_ =
 			"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
 		training_labels_ =
@@ -289,8 +285,7 @@ void ofApp::keyPressed(int key){
 		vector_training_labels_ = CreateVectorOfLabels(training_labels_);
 
 		vector_class_feature_probability_ = VectorClassFeatureProbability(vector_training_images, vector_training_labels_);
-
-		
+		*/
 		vector<double> vector_label_priors = VectorLabelPriors(vector_training_labels_);
 		vector<double> vector_posterior_probabilities = VectorPosteriorProbabilities(vector_label_priors, 
 			vector_class_feature_probability_, image_in_binary);

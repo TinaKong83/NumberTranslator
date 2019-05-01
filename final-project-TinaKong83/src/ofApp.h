@@ -10,11 +10,6 @@
 
 class ofApp : public ofBaseApp {
 
-	enum AppState {
-		CANVAS_STATE = 0,
-		OUTPUT
-	};
-
 	enum LanguageState {
 		ENGLISH = 0,
 		FRENCH,
@@ -22,7 +17,7 @@ class ofApp : public ofBaseApp {
 		CHINESE
 	};
 
-	ofTrueTypeFont instruction_;
+	ofTrueTypeFont canvas_instruction_;
 	ofTrueTypeFont english_label_;
 	ofTrueTypeFont french_label_;
 	ofTrueTypeFont spanish_label_;
@@ -68,14 +63,10 @@ public:
 	void mousePressed(int x, int y, int button);
 	void resetButtonColors();
 
-	AppState current_state_ = CANVAS_STATE;
 	LanguageState current_language_ = ENGLISH;
 	int estimated_class_;
-
 	ofPoint pts[3000];
 	int num_pts_;
-
-	ofxButton translate_button_;
 
 	ofImage user_drawing_;
 	ofImage chinese_char_;
