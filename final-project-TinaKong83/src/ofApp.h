@@ -39,6 +39,8 @@ class ofApp : public ofBaseApp {
 	ofSoundPlayer play_music;
 	ofSoundPlayer translation_audio;
 
+	ofPolyline line_;
+
 public:
 	void setup();
 	void loadFonts();
@@ -81,6 +83,7 @@ public:
 	ofImage user_drawing;
 	ofImage chinese_char;
 
+	ofRectangle canvas;
 	ofRectangle english_button;
 	ofRectangle french_button;
 	ofRectangle spanish_button;

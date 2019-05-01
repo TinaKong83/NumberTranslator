@@ -12,6 +12,7 @@ void ofApp::setup(){
 	spanish_button.set(750, 300, 300, 150);
 	chinese_button.set(1100, 300, 300, 150);
 	
+	/*
 	training_images = 
 		"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
 	training_labels = 
@@ -19,6 +20,7 @@ void ofApp::setup(){
 	vector<vector<vector<int>>> vector_training_images = CreateVectorOfImages(training_images);
 	vector_training_labels = CreateVectorOfLabels(training_labels);
 	vector_class_feature_probability = VectorClassFeatureProbability(vector_training_images, vector_training_labels);
+	*/
 }
 
 //--------------------------------------------------------------
@@ -46,7 +48,9 @@ void ofApp::draw(){
 
 	ofSetColor(243, 219, 172);
 	ofFill();
-	ofDrawRectangle(100, 100, 500, 500);
+	canvas.set(100, 100, 500, 500);
+	ofDrawRectangle(canvas);
+
 	setupEnglishButton();
 	setupFrenchButton();
 	setupSpanishButton();
@@ -276,7 +280,7 @@ void ofApp::keyPressed(int key){
 		vector<vector<char>> converted_image = processImage(image_pixels);
 		vector<vector<int>> image_in_binary = ConvertImagetoBinary(converted_image);
 
-		/*
+		
 		training_images = 
 			"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
 		training_labels = 
@@ -287,7 +291,7 @@ void ofApp::keyPressed(int key){
 
 		vector_class_feature_probability = VectorClassFeatureProbability(vector_training_images, vector_training_labels);
 
-		*/
+		
 		vector<double> vector_label_priors = VectorLabelPriors(vector_training_labels);
 		vector<double> vector_posterior_probabilities = VectorPosteriorProbabilities(vector_label_priors, 
 			vector_class_feature_probability, image_in_binary);
@@ -608,7 +612,7 @@ void ofApp::printCompositeImage(vector<vector<char>>& converted_image) {
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-	if (num_pts < 3000) {
+	if (num_pts < 3000 && canvas.inside(x, y)) {
 		pts[num_pts].x = x;
 		pts[num_pts].y = y;
 		num_pts++;
