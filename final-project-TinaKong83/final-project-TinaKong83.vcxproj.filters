@@ -120,4 +120,7 @@
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\data\demo.PNG" />
+  </ItemGroup>
 </Project>
