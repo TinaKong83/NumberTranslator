@@ -29,8 +29,8 @@ vector<double> VectorPosteriorProbabilities(vector<double>& vector_label_priors,
 	return vector_test_probabilities;
 }
 
-/*Since the feature probabilities are calculated for white pixels by default, this method allows the probability of black
-pixel to be stored as well*/
+/*Since the feature probabilities are calculated for white pixels by default, this method allows the 
+probability of black pixel to be stored as well*/
 vector<vector<double>> SetImageTestFeatureProbabilities(vector<vector<int>>& current_image,
 	vector<vector<double>>& vector_feature_probabilities) {
 	vector<vector<double>> set_vector_feature_probabilities(28, vector<double>(28, 0.0));

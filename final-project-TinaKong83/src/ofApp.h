@@ -33,7 +33,6 @@ class ofApp : public ofBaseApp {
 	ofSoundPlayer play_music_;
 	ofSoundPlayer translation_audio_;
 
-public:
 	void setup();
 	void loadFonts();
 	void draw();

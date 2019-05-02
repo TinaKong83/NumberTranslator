@@ -61,6 +61,7 @@ void ofApp::draw(){
 }
 
 //--------------------------------------------------------------
+//Graphics and text for English Button
 void ofApp::setupEnglishButton() {
 	english_button_.set(750, 100, 300, 150);
 	ofSetColor(216, 191, 216);
@@ -74,6 +75,7 @@ void ofApp::setupEnglishButton() {
 	}
 }
 //--------------------------------------------------------------
+//Graphics and text for French Button
 void ofApp::setupFrenchButton() {
 	french_button_.set(1100, 100, 300, 150);
 	ofSetColor(216, 191, 216);
@@ -86,6 +88,7 @@ void ofApp::setupFrenchButton() {
 	}
 }
 //--------------------------------------------------------------
+//Graphics and text for Spanish Button
 void ofApp::setupSpanishButton() {
 	spanish_button_.set(750, 300, 300, 150);
 	ofSetColor(216, 191, 216);
@@ -98,6 +101,7 @@ void ofApp::setupSpanishButton() {
 	}
 }
 //--------------------------------------------------------------
+//Graphics and text for Chinese Button
 void ofApp::setupChineseButton() {
 	chinese_button_.set(1100, 300, 300, 150);
 	ofSetColor(216, 191, 216);
@@ -111,6 +115,8 @@ void ofApp::setupChineseButton() {
 }
 
 //--------------------------------------------------------------
+//After determining an estimated class of the user drawing, generate an image of a character (if chinese)
+//and write the pronunciation/translation.
 void ofApp::translateClassifiedImage() {
 	if (estimated_class_ == 0) {
 		translation_output_.drawString("Zero", 1020, 600);
@@ -266,6 +272,7 @@ void ofApp::keyPressed(int key){
 	if (upper_key == 'C') {
 		num_pts_ = 0;
 	}
+	//After user presses 'enter', convert image to grayscale and pass image into Naive Bayes algorithm
 	if (key == OF_KEY_RETURN) {
 		user_drawing_.grabScreen(100, 100, 500, 500);
 		user_drawing_.resize(28, 28);
@@ -297,6 +304,7 @@ void ofApp::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
+//Play audio clips in the selected language for the matched number
 void ofApp::setLanguageAudio(int estimated_class_) {
 	if (estimated_class_ == 0) {
 		audioOfZero();
