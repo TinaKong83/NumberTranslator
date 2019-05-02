@@ -281,22 +281,9 @@ void ofApp::keyPressed(int key){
 		ofPixels image_pixels = user_drawing_.getPixels();
 		vector<vector<char>> converted_image = processImage(image_pixels);
 		vector<vector<int>> image_in_binary = ConvertImagetoBinary(converted_image);
-		
-		/*
-		training_images_ =
-			"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\trainingimagesfinal";
-		training_labels_ =
-			"C:\\Users\\kongt\\final-project-TinaKong83\\final-project-TinaKong83\\bin\\data\\traininglabelsfinal";
-		vector<vector<vector<int>>> vector_training_images = CreateVectorOfImages(training_images_);
-
-		vector_training_labels_ = CreateVectorOfLabels(training_labels_);
-
-		vector_class_feature_probability_ = VectorClassFeatureProbability(vector_training_images, vector_training_labels_);
-		*/
 		vector<double> vector_label_priors = VectorLabelPriors(vector_training_labels_);
 		vector<double> vector_posterior_probabilities = VectorPosteriorProbabilities(vector_label_priors, 
 			vector_class_feature_probability_, image_in_binary);
-
 		estimated_class_ = EstimateImageClass(vector_posterior_probabilities);
 		image_classified_ = true;
 		setLanguageAudio(estimated_class_);
