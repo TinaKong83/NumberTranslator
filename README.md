@@ -6,9 +6,7 @@ In this project, I extended the Naive Bayes assignment. The user can use their m
 Written using Google C++ Style Guide (https://google.github.io/styleguide/cppguide.html)
 
 ## Demo
-<p align="center">
-  <img width="500" height="450" src="bin/data/demo.png">
-</p>
+![image](https://user-images.githubusercontent.com/42946669/57054089-fe8b3000-6c57-11e9-8223-642b1cce493e.png)
 After the user draws and submits a number, they can press 'C' to clear the image. After selecting a language, the user presses 'enter' to play an audio clip of the number in the selected language.
 
 ## Resources
